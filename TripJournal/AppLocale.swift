@@ -6,11 +6,15 @@ enum AppLocale {
     }
 
     static var appLanguageIdentifier: String {
-        Locale.current.region?.identifier == "CN" ? "zh-Hans" : "en"
+        if let language = ProcessInfo.processInfo.environment["UITEST_LANGUAGE"], !language.isEmpty {
+            return language
+        }
+
+        return Locale.current.region?.identifier == "CN" ? "zh-Hans" : "en"
     }
 
     static var isChinaRegion: Bool {
-        Locale.current.region?.identifier == "CN"
+        appLanguageIdentifier == "zh-Hans" || Locale.current.region?.identifier == "CN"
     }
 
     static var privacyURL: URL {
@@ -27,4 +31,3 @@ enum AppLocale {
         return URL(string: prefix + path)!
     }
 }
-

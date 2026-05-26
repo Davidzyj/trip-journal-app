@@ -1,4 +1,5 @@
 DerivedData/
+build/
 .build/
 .swiftpm/
 *.xcuserstate
@@ -8,4 +9,3 @@ DerivedData/
 *.moved-aside
 .DS_Store
 screenshots/
-

@@ -10,6 +10,7 @@ The repository contains a buildable SwiftUI iPhone app named Trip Journal / é€”è
 - Storage: SwiftData, local-only
 - Network: no app runtime network requests
 - External links: privacy and support pages from settings
+- GitHub Pages: live at `https://davidzyj.github.io/trip-journal-app/`
 
 ## Important Files
 
@@ -34,10 +35,6 @@ xcodebuild -project TripJournal.xcodeproj -scheme TripJournal -destination 'plat
 
 ## Remaining Work
 
-1. Create GitHub repository and push the project.
-2. Enable GitHub Pages from the `docs/` folder.
-3. Verify public privacy and support URLs.
-4. Run the app in a 6.5-inch simulator and capture English and Chinese screenshots.
-5. Prepare App Store metadata.
-6. Archive/upload through Xcode after Apple Developer Team ID is available.
-
+1. Prepare final App Store metadata in App Store Connect.
+2. Archive/upload through Xcode after Apple Developer Team ID is available.
+3. Build the App Store listing once the Apple account details are ready.

@@ -7,7 +7,9 @@ struct TripJournalApp: App {
 
     init() {
         do {
-            modelContainer = try ModelContainer(for: Trip.self, PackingItem.self, TransportRecord.self, PlaceVisit.self, JournalEntry.self)
+            let schema = Schema([Trip.self, PackingItem.self, TransportRecord.self, PlaceVisit.self, JournalEntry.self])
+            let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: ScreenshotFixtures.isEnabled)
+            modelContainer = try ModelContainer(for: schema, configurations: [configuration])
         } catch {
             fatalError("Failed to create local model container: \(error)")
         }
@@ -21,4 +23,3 @@ struct TripJournalApp: App {
         .modelContainer(modelContainer)
     }
 }
-

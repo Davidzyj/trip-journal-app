@@ -50,9 +50,21 @@
 
 ## Pending
 
-- Re-check GitHub Pages after the first build finishes.
-- Capture App Store screenshots, 6.5-inch only, Chinese and English sets.
 - Prepare App Store metadata.
+
+## 2026-05-27
+
+- GitHub Pages finished building successfully.
+  - Public site: `https://davidzyj.github.io/trip-journal-app/`
+  - Privacy policy: `https://davidzyj.github.io/trip-journal-app/privacy.html`
+  - Support page: `https://davidzyj.github.io/trip-journal-app/support.html`
+  - Chinese privacy policy: `https://davidzyj.github.io/trip-journal-app/zh/privacy.html`
+  - Chinese support page: `https://davidzyj.github.io/trip-journal-app/zh/support.html`
+- Captured App Store screenshots for 6.5-inch iPhone only.
+  - English set: `screenshots/6.5/en/01-home.png`, `screenshots/6.5/en/02-detail.png`
+  - Simplified Chinese set: `screenshots/6.5/zh-Hans/01-home.png`, `screenshots/6.5/zh-Hans/02-detail.png`
+- Added a deterministic screenshot script with automatic white-screen detection and retry logic.
+- Confirmed the final screenshot previews render correctly in both languages.
 
 ## Notes for Future Agents
 

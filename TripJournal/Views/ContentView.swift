@@ -6,9 +6,11 @@ struct ContentView: View {
     @Query(sort: \Trip.startDate, order: .reverse) private var trips: [Trip]
     @State private var isShowingNewTrip = false
     @State private var isShowingSettings = false
+    @State private var navigationPath: [Trip] = []
+    @State private var didPrepareScreenshotState = false
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             Group {
                 if trips.isEmpty {
                     EmptyTripView {
@@ -57,12 +59,36 @@ struct ContentView: View {
             .sheet(isPresented: $isShowingSettings) {
                 SettingsView()
             }
+            .onAppear {
+                prepareScreenshotState()
+            }
         }
     }
 
     private func deleteTrips(at offsets: IndexSet) {
         for index in offsets {
             modelContext.delete(trips[index])
+        }
+    }
+
+    private func prepareScreenshotState() {
+        guard ScreenshotFixtures.isEnabled, !didPrepareScreenshotState else {
+            return
+        }
+
+        didPrepareScreenshotState = true
+
+        guard let trip = ScreenshotFixtures.seedIfNeeded(in: modelContext) else {
+            return
+        }
+
+        switch ScreenshotFixtures.initialScreen {
+        case .detail:
+            navigationPath = [trip]
+        case .settings:
+            isShowingSettings = true
+        case .home:
+            break
         }
     }
 }
@@ -198,4 +224,138 @@ private struct StatPill: View {
 #Preview {
     ContentView()
         .modelContainer(for: [Trip.self, PackingItem.self, TransportRecord.self, PlaceVisit.self, JournalEntry.self], inMemory: true)
+}
+
+enum ScreenshotFixtures {
+    enum InitialScreen: String {
+        case home
+        case detail
+        case settings
+    }
+
+    static var isEnabled: Bool {
+        ProcessInfo.processInfo.environment["UITEST_SCREENSHOTS"] == "1"
+    }
+
+    static var initialScreen: InitialScreen {
+        let value = ProcessInfo.processInfo.environment["UITEST_INITIAL_SCREEN"] ?? InitialScreen.home.rawValue
+        return InitialScreen(rawValue: value) ?? .home
+    }
+
+    static func seedIfNeeded(in modelContext: ModelContext) -> Trip? {
+        var descriptor = FetchDescriptor<Trip>()
+        descriptor.fetchLimit = 1
+
+        if let existingTrip = try? modelContext.fetch(descriptor).first {
+            return existingTrip
+        }
+
+        let trip = sampleTrip()
+        modelContext.insert(trip)
+
+        trip.packingItems = samplePackingItems(for: trip)
+        trip.transports = sampleTransports(for: trip)
+        trip.places = samplePlaces(for: trip)
+        trip.entries = sampleEntries(for: trip)
+
+        try? modelContext.save()
+        return trip
+    }
+
+    private static func sampleTrip() -> Trip {
+        Trip(
+            title: localized(english: "Kyoto Spring Walk", chinese: "京都春日漫游"),
+            destination: localized(english: "Kyoto, Japan", chinese: "日本京都"),
+            startDate: date(year: 2026, month: 4, day: 8),
+            endDate: date(year: 2026, month: 4, day: 13),
+            summary: localized(
+                english: "A quiet six-day trip for temples, trains, river paths, and small notes written between stops.",
+                chinese: "一次六天的安静旅行，寺院、列车、河边小路，还有写在路途间的片刻心情。"
+            )
+        )
+    }
+
+    private static func samplePackingItems(for trip: Trip) -> [PackingItem] {
+        [
+            PackingItem(name: localized(english: "Passport", chinese: "护照"), note: localized(english: "Keep in front pocket", chinese: "放在随身小包"), isPacked: true, trip: trip),
+            PackingItem(name: localized(english: "Light jacket", chinese: "轻薄外套"), note: localized(english: "Cool evenings by the river", chinese: "河边夜晚会有些凉"), isPacked: true, trip: trip),
+            PackingItem(name: localized(english: "Travel journal", chinese: "旅行手账本"), note: localized(english: "For stamps and tiny sketches", chinese: "盖章和简单速写"), isPacked: true, trip: trip),
+            PackingItem(name: localized(english: "Camera charger", chinese: "相机充电器"), note: localized(english: "Check before leaving", chinese: "出门前再确认"), isPacked: false, trip: trip)
+        ]
+    }
+
+    private static func sampleTransports(for trip: Trip) -> [TransportRecord] {
+        [
+            TransportRecord(
+                type: "transport.type.flight",
+                title: localized(english: "Flight MU 729", chinese: "MU 729 航班"),
+                departure: localized(english: "Shanghai", chinese: "上海"),
+                arrival: localized(english: "Osaka", chinese: "大阪"),
+                date: date(year: 2026, month: 4, day: 8, hour: 9, minute: 35),
+                note: localized(english: "Window seat, clear morning light.", chinese: "靠窗座位，早晨的光线很好。"),
+                trip: trip
+            ),
+            TransportRecord(
+                type: "transport.type.train",
+                title: localized(english: "Haruka Express", chinese: "Haruka 特急"),
+                departure: localized(english: "Kansai Airport", chinese: "关西机场"),
+                arrival: localized(english: "Kyoto Station", chinese: "京都站"),
+                date: date(year: 2026, month: 4, day: 8, hour: 13, minute: 10),
+                note: localized(english: "First stamp collected at the station.", chinese: "在车站盖下第一枚纪念章。"),
+                trip: trip
+            )
+        ]
+    }
+
+    private static func samplePlaces(for trip: Trip) -> [PlaceVisit] {
+        [
+            PlaceVisit(
+                name: localized(english: "Philosopher's Path", chinese: "哲学之道"),
+                city: localized(english: "Kyoto", chinese: "京都"),
+                date: date(year: 2026, month: 4, day: 9),
+                impression: localized(english: "Cherry petals moved slowly on the canal.", chinese: "樱花瓣在水面上慢慢漂过。"),
+                trip: trip
+            ),
+            PlaceVisit(
+                name: localized(english: "Fushimi Inari", chinese: "伏见稻荷大社"),
+                city: localized(english: "Kyoto", chinese: "京都"),
+                date: date(year: 2026, month: 4, day: 10),
+                impression: localized(english: "Red gates, mountain air, and a long quiet climb.", chinese: "红色鸟居、山间空气，还有一段很安静的上坡路。"),
+                trip: trip
+            )
+        ]
+    }
+
+    private static func sampleEntries(for trip: Trip) -> [JournalEntry] {
+        [
+            JournalEntry(
+                title: localized(english: "First evening in Gion", chinese: "抵达祇园的第一晚"),
+                body: localized(
+                    english: "Lanterns turned on one by one. I wrote down the route while the street was still warm from the day.",
+                    chinese: "灯笼一盏盏亮起来。我趁街道还留着白天的温度，把今天走过的路线记了下来。"
+                ),
+                mood: localized(english: "Calm", chinese: "平静"),
+                date: date(year: 2026, month: 4, day: 8, hour: 20, minute: 20),
+                trip: trip
+            ),
+            JournalEntry(
+                title: localized(english: "Train window", chinese: "列车窗边"),
+                body: localized(
+                    english: "The city moved past in small pieces: rooftops, vending machines, school bags, and a sudden line of mountains.",
+                    chinese: "城市从窗边一小段一小段地退后：屋顶、自动贩卖机、书包，还有突然出现的山线。"
+                ),
+                mood: localized(english: "Moved", chinese: "触动"),
+                date: date(year: 2026, month: 4, day: 9, hour: 10, minute: 40),
+                trip: trip
+            )
+        ]
+    }
+
+    private static func localized(english: String, chinese: String) -> String {
+        AppLocale.appLanguageIdentifier == "zh-Hans" ? chinese : english
+    }
+
+    private static func date(year: Int, month: Int, day: Int, hour: Int = 12, minute: Int = 0) -> Date {
+        Calendar(identifier: .gregorian).date(from: DateComponents(year: year, month: month, day: day, hour: hour, minute: minute)) ?? Date()
+    }
 }
