@@ -30,6 +30,13 @@
 - Verified simulator build:
   - Command: `xcodebuild -project TripJournal.xcodeproj -scheme TripJournal -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.2' build`
   - Result: `BUILD SUCCEEDED`.
+- Initialized git and created the first commit:
+  - Commit: `b6fc192 Initial Trip Journal app`.
+- Created GitHub repository:
+  - `https://github.com/Davidzyj/trip-journal-app`.
+- Enabled GitHub Pages from `main` branch `/docs` folder:
+  - `https://davidzyj.github.io/trip-journal-app/`.
+  - Status at enable time: `building`.
 
 ## MVP Scope
 
@@ -43,7 +50,7 @@
 
 ## Pending
 
-- Create GitHub repository and enable GitHub Pages.
+- Re-check GitHub Pages after the first build finishes.
 - Capture App Store screenshots, 6.5-inch only, Chinese and English sets.
 - Prepare App Store metadata.
 
@@ -53,4 +60,3 @@
 - If App Store Connect requires a development team, set `DEVELOPMENT_TEAM` in the target build settings without changing the bundle identifier.
 - The in-app China-region language behavior is implemented in `TripJournal/AppLocale.swift`.
 - Home screen app name localization depends on iOS language selection through `InfoPlist.strings`, which is Apple's supported behavior.
-
