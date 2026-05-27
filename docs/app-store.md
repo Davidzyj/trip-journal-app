@@ -1,5 +1,11 @@
 # App Store Notes
 
+## Default Workflow
+
+Use `docs/app-store-connect-template.md` as the primary fill-in template for this specific project. Do not browse Apple documentation when the user only asks to organize or restate this project's App Store Connect content.
+
+Browse official Apple documentation only if the user explicitly asks to verify the latest rules, App Store Connect rejects a field, or the app changes in a way that affects privacy, compliance, screenshots, payments, accounts, or review.
+
 ## App
 
 - Bundle ID: `com.zhouyajie.tripjournal`
@@ -36,4 +42,3 @@ Planned sets:
 
 - English
 - Simplified Chinese
-

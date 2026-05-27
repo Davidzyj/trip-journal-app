@@ -65,10 +65,12 @@
   - Simplified Chinese set: `screenshots/6.5/zh-Hans/01-home.png`, `screenshots/6.5/zh-Hans/02-detail.png`
 - Added a deterministic screenshot script with automatic white-screen detection and retry logic.
 - Confirmed the final screenshot previews render correctly in both languages.
+- Added a reusable App Store Connect fill template and documented the no-browse default workflow for routine App Store metadata preparation.
 
 ## Notes for Future Agents
 
 - Do not add analytics, remote sync, accounts, or third-party SDKs before re-checking the privacy policy and App Store privacy declaration.
+- For routine App Store listing content, use `docs/app-store-connect-template.md` and do not browse Apple documentation unless the user asks for latest-rule verification or App Store Connect rejects a field.
 - If App Store Connect requires a development team, set `DEVELOPMENT_TEAM` in the target build settings without changing the bundle identifier.
 - The in-app China-region language behavior is implemented in `TripJournal/AppLocale.swift`.
 - Home screen app name localization depends on iOS language selection through `InfoPlist.strings`, which is Apple's supported behavior.
