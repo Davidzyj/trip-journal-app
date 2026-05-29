@@ -1,4 +1,4 @@
-"app.title" = "途记";
+"app.title" = "旅途记";
 "empty.title" = "开启第一本旅行手账";
 "empty.subtitle" = "记录出发前的物品准备、一路乘坐的交通、去过的地点，以及真正让这趟旅行属于你的所见所感。";
 "trip.new" = "新建旅行";
@@ -58,5 +58,4 @@
 "settings.privacy" = "隐私政策";
 "settings.support" = "支持";
 "settings.privacy.section" = "隐私";
-"settings.privacy.local" = "途记只会把旅行记录保存在这台 iPhone 上，不会发送到服务器。";
-
+"settings.privacy.local" = "旅途记只会把旅行记录保存在这台 iPhone 上，不会发送到服务器。";

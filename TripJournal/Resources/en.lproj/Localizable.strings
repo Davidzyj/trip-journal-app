@@ -1,4 +1,4 @@
-"app.title" = "Trip Journal";
+"app.title" = "Travel Memo";
 "empty.title" = "Start your first travel journal";
 "empty.subtitle" = "Plan what to bring, record every route, save places you loved, and keep the feelings that made the trip yours.";
 "trip.new" = "New Trip";
@@ -58,5 +58,4 @@
 "settings.privacy" = "Privacy Policy";
 "settings.support" = "Support";
 "settings.privacy.section" = "Privacy";
-"settings.privacy.local" = "Trip Journal stores your travel records only on this iPhone and does not send them to a server.";
-
+"settings.privacy.local" = "Travel Memo stores your travel records only on this iPhone and does not send them to a server.";

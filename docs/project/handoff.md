@@ -2,7 +2,7 @@
 
 ## Current State
 
-The repository contains a buildable SwiftUI iPhone app named Trip Journal / 途记.
+The repository contains a buildable SwiftUI iPhone app named Travel Memo App / 旅途记.
 
 - Bundle ID: `com.zhouyajie.tripjournal`
 - Version: `1.0.0`

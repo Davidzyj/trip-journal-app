@@ -1,12 +1,13 @@
-# Trip Journal Progress
+# Travel Memo App Progress
 
 ## 2026-05-26
 
 - Created the project from an empty directory.
 - Product direction selected: an offline iPhone travel journal for packing preparation, transportation records, visited places, and personal notes.
 - App names:
-  - English: Trip Journal
-  - Simplified Chinese: 途记
+  - English marketplace: Travel Memo App
+  - English device display: Travel Memo
+  - Simplified Chinese: 旅途记
 - Bundle ID: `com.zhouyajie.tripjournal`.
 - Version: `1.0.0`.
 - Support email: `jay212315@gmail.com`.
@@ -66,6 +67,16 @@
 - Added a deterministic screenshot script with automatic white-screen detection and retry logic.
 - Confirmed the final screenshot previews render correctly in both languages.
 - Added a reusable App Store Connect fill template and documented the no-browse default workflow for routine App Store metadata preparation.
+
+## 2026-05-29
+
+- Addressed App Review Guideline 2.3.8 rejection for marketplace/device app name mismatch.
+- Aligned naming to App Store Connect availability:
+  - English marketplace name: `Travel Memo App`
+  - English device display name: `Travel Memo`
+  - Simplified Chinese name: `旅途记`
+- Updated localized `CFBundleDisplayName`, in-app title, privacy/support pages, App Store metadata docs, and handoff docs.
+- Incremented build number from `1` to `2` for resubmission.
 
 ## Notes for Future Agents
 

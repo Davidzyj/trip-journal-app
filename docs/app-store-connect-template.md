@@ -12,8 +12,9 @@ Future agents should use this file together with `docs/app-store-metadata.md` an
 ## App Record
 
 - Platform: iOS
-- Name: Trip Journal
-- Simplified Chinese name: 途记
+- Name: Travel Memo App
+- Device display name: Travel Memo
+- Simplified Chinese name: 旅途记
 - Bundle ID: `com.zhouyajie.tripjournal`
 - SKU: `tripjournal_ios_001`
 - Version: `1.0.0`
@@ -26,13 +27,13 @@ Future agents should use this file together with `docs/app-store-metadata.md` an
 
 ## English Listing
 
-- Name: `Trip Journal`
+- Name: `Travel Memo App`
 - Subtitle: `Offline travel notes and packing`
 - Promotional text: `Plan what to bring, record where you went, and keep the moments that made each trip yours.`
 - Description:
 
 ```text
-Trip Journal is a private offline notebook for your travels. Create a trip, prepare a packing list, record transportation, save places you visited, and write down what you saw and felt along the way.
+Travel Memo App is a private offline notebook for your travels. Create a trip, prepare a packing list, record transportation, save places you visited, and write down what you saw and felt along the way.
 
 Version 1.0.0 is designed to stay simple and local. No account is required, and your travel records are stored on your iPhone.
 ```
@@ -44,13 +45,13 @@ Version 1.0.0 is designed to stay simple and local. No account is required, and 
 
 ## Simplified Chinese Listing
 
-- 名称：`途记`
+- 名称：`旅途记`
 - 副标题：`离线旅行手账与清单`
 - 推广文本：`记录出发前的准备、一路经过的地方，以及真正属于你的旅途感受。`
 - 描述：
 
 ```text
-途记是一款私密的离线旅行手账。你可以新建一次旅行，准备物品清单，记录乘坐的交通工具，保存去过的地点，并写下旅途中的所见所感。
+旅途记是一款私密的离线旅行手账。你可以新建一次旅行，准备物品清单，记录乘坐的交通工具，保存去过的地点，并写下旅途中的所见所感。
 
 1.0.0 版本保持简单、本地、安静。不需要账号，你的旅行记录保存在自己的 iPhone 上。
 ```
@@ -74,7 +75,7 @@ Use the current project behavior as the basis:
 Suggested review note:
 
 ```text
-Trip Journal is an offline travel journal app. It does not require an account, does not collect user data, and does not make network requests except when the user manually opens the support or privacy policy links.
+Travel Memo App is an offline travel journal app. It does not require an account, does not collect user data, and does not make network requests except when the user manually opens the support or privacy policy links.
 ```
 
 ## Export Compliance

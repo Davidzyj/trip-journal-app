@@ -2,7 +2,7 @@
 
 ## Concept
 
-Trip Journal / 途记 is a private, offline travel journal for people who want one place to keep everything about a trip: what to bring, how they traveled, where they went, and what they felt.
+Travel Memo App / 旅途记 is a private, offline travel journal for people who want one place to keep everything about a trip: what to bring, how they traveled, where they went, and what they felt.
 
 ## Audience
 
@@ -25,4 +25,3 @@ The first version focuses on local capture and review. It intentionally avoids a
 ## Positioning
 
 An intimate travel notebook, not a trip booking app, route planner, or social feed.
-
