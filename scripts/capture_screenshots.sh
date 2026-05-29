@@ -31,8 +31,10 @@ capture() {
   local folder="$2"
   local screen="$3"
   local filename="$4"
+  local expected_text="$5"
   local temp_path="${SCREENSHOT_ROOT}/${folder}/.${filename}.tmp.png"
   local ratio
+  local text_match
 
   xcrun simctl terminate "${DEVICE_NAME}" "${BUNDLE_ID}" >/dev/null 2>&1 || true
   SIMCTL_CHILD_UITEST_SCREENSHOTS=1 \
@@ -87,20 +89,51 @@ let ratio = Double(nonWhite) / Double(total)
 print(String(format: "%.5f", ratio))
 SWIFT
 )"
-    if awk "BEGIN {exit !(${ratio} >= ${MIN_NONWHITE_RATIO})}"; then
+    text_match="$(swift - "${temp_path}" "${expected_text}" <<'SWIFT'
+import AppKit
+import Foundation
+import Vision
+
+let path = CommandLine.arguments[1]
+let expected = CommandLine.arguments[2].lowercased()
+let url = URL(fileURLWithPath: path)
+
+guard let image = NSImage(contentsOf: url),
+      let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+    print("no")
+    exit(0)
+}
+
+let request = VNRecognizeTextRequest()
+request.recognitionLevel = .accurate
+request.usesLanguageCorrection = false
+request.recognitionLanguages = ["zh-Hans", "en-US"]
+
+let handler = VNImageRequestHandler(cgImage: cgImage)
+try? handler.perform([request])
+
+let text = (request.results ?? [])
+    .compactMap { $0.topCandidates(1).first?.string }
+    .joined(separator: "\n")
+    .lowercased()
+
+print(text.contains(expected) ? "yes" : "no")
+SWIFT
+)"
+    if awk "BEGIN {exit !(${ratio} >= ${MIN_NONWHITE_RATIO})}" && [[ "${text_match}" == "yes" ]]; then
       mv "${temp_path}" "${SCREENSHOT_ROOT}/${folder}/${filename}"
       return 0
     fi
   done
 
   mv "${temp_path}" "${SCREENSHOT_ROOT}/${folder}/${filename}"
-  echo "Warning: screenshot ${folder}/${filename} may still be blank-ish" >&2
+  echo "Warning: screenshot ${folder}/${filename} may still be invalid; expected text '${expected_text}' was not confirmed" >&2
 }
 
-capture "en" "en" "home" "01-home.png"
-capture "en" "en" "detail" "02-detail.png"
-capture "zh-Hans" "zh-Hans" "home" "01-home.png"
-capture "zh-Hans" "zh-Hans" "detail" "02-detail.png"
+capture "en" "en" "home" "01-home.png" "Travel Memo"
+capture "en" "en" "detail" "02-detail.png" "Kyoto Spring Walk"
+capture "zh-Hans" "zh-Hans" "home" "01-home.png" "旅途记"
+capture "zh-Hans" "zh-Hans" "detail" "02-detail.png" "京都春日漫游"
 
 sips -g pixelWidth -g pixelHeight "${SCREENSHOT_ROOT}"/*/*.png \
   > "${SCREENSHOT_ROOT}/dimensions.txt"
