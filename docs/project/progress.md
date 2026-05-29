@@ -77,6 +77,10 @@
   - Simplified Chinese name: `旅途记`
 - Updated localized `CFBundleDisplayName`, in-app title, privacy/support pages, App Store metadata docs, and handoff docs.
 - Incremented build number from `1` to `2` for resubmission.
+- Optimized the app icon while keeping the mountain, route, sun, and location-pin elements:
+  - Added a deep blue outline around the location pin to separate it from the pale mountain.
+  - Changed the pin center to warm red-orange for stronger contrast.
+  - Regenerated all AppIcon sizes and confirmed the 1024 icon remains RGB PNG with no alpha channel.
 
 ## Notes for Future Agents
 

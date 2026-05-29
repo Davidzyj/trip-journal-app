@@ -89,9 +89,21 @@ func drawIcon(size: Int, url: URL) throws {
     )
     context.strokePath()
 
-    context.setFillColor(NSColor.white.cgColor)
     let pinCenter = CGPoint(x: 535 * scale, y: 575 * scale)
     let pinRadius = 118 * scale
+
+    context.setStrokeColor(NSColor(red: 0.10, green: 0.18, blue: 0.50, alpha: 1).cgColor)
+    context.setLineWidth(24 * scale)
+    context.setLineJoin(.round)
+    context.beginPath()
+    context.addEllipse(in: CGRect(x: pinCenter.x - pinRadius, y: pinCenter.y - pinRadius, width: pinRadius * 2, height: pinRadius * 2))
+    context.move(to: CGPoint(x: 535 * scale, y: 312 * scale))
+    context.addLine(to: CGPoint(x: 445 * scale, y: 505 * scale))
+    context.addLine(to: CGPoint(x: 625 * scale, y: 505 * scale))
+    context.closePath()
+    context.strokePath()
+
+    context.setFillColor(NSColor.white.cgColor)
     context.fillEllipse(in: CGRect(x: pinCenter.x - pinRadius, y: pinCenter.y - pinRadius, width: pinRadius * 2, height: pinRadius * 2))
     path([
         CGPoint(x: 535, y: 312),
@@ -99,7 +111,7 @@ func drawIcon(size: Int, url: URL) throws {
         CGPoint(x: 625, y: 505)
     ], color: .white)
 
-    context.setFillColor(NSColor(red: 0.02, green: 0.47, blue: 0.45, alpha: 1).cgColor)
+    context.setFillColor(NSColor(red: 0.95, green: 0.31, blue: 0.18, alpha: 1).cgColor)
     context.fillEllipse(in: CGRect(x: pinCenter.x - 43 * scale, y: pinCenter.y - 43 * scale, width: 86 * scale, height: 86 * scale))
 
     guard let cgImage = context.makeImage() else {
